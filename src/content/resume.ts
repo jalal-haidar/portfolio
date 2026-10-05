@@ -22,7 +22,7 @@ export const resume = {
     },
     {
       slug: "gitswitch",
-      line: "Tauri 2 / Rust desktop app for managing Git identities per folder. 25 Rust tests, CI, signed Windows installers with auto-update.",
+      line: "Tauri 2 / Rust desktop app for managing Git identities per folder. 121 Rust tests, CI, signed Windows installers with auto-update.",
     },
   ],
 } as const;

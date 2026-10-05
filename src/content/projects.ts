@@ -97,7 +97,7 @@ export const projects: Project[] = [
     stack: ["Rust", "Tauri 2", "React", "TypeScript", "Zustand", "GitHub Actions"],
     highlights: [
       "Per-folder identity rules via git includeIf, plus SSH key generation and ~/.ssh/config host aliases.",
-      "25 Rust tests and 4 frontend test files, with CI and a release workflow.",
+      "121 Rust tests and 16 frontend test files, with CI and a release workflow.",
       "Ships signed Windows EXE/MSI installers with an auto-update manifest; latest release v0.2.7.",
     ],
     links: {
