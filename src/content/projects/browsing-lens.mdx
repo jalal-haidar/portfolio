@@ -1,0 +1,33 @@
+## Overview
+
+Browsing Lens helps you understand your own browsing habits. A Chrome extension records visits locally and syncs them to a web dashboard that scores productivity and surfaces patterns. It is one of the lenses in the LifeLens platform.
+
+## The problem
+
+Most people have little idea where their time goes online. Browser history is a raw list of URLs, and it is hard to turn it into something that shows habits or helps you focus.
+
+## What I built
+
+- A **Manifest V3 Chrome extension** with a background service worker, a popup and an options page.
+- A **Next.js 16 dashboard** with daily and weekly focus metrics and habit insights, charted with Recharts.
+- **Focus mode**, which blocks distracting sites based on configurable rules.
+- **Visit tracking** that captures page titles and URLs, with cross-device sync once you sign in.
+- A documented **ingestion endpoint** (`/api/ext`) so data can also be sent programmatically.
+
+## Architecture
+
+- The extension records visits **locally first** and syncs them to the web app when you are authenticated.
+- The web app stores data in Supabase Postgres under its own `browsing` schema.
+- Sign-in comes from the shared `@lifelens/auth` SDK, like every other lens.
+- Deployed on Vercel.
+
+## Key decisions
+
+- **Local-first capture.** The extension keeps working without a connection and syncs later. The trade-off is that sync needs to handle data arriving late.
+- **A schema per lens.** Browsing data stays separate from the other apps while sharing one Supabase project and one login.
+- **A single ingestion endpoint** for the extension keeps the contract between extension and server in one place.
+
+## Results
+
+- Live at browsing-lens.vercel.app, with the extension in the same repository.
+- Built in a few days as part of the split of LifeLens into independent lens apps.

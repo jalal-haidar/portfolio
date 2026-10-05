@@ -1,0 +1,35 @@
+## Overview
+
+Wardrobe Lens is the AI wardrobe app from the LifeLens platform, split into its own application. You snap a photo of a garment and Gemini Vision fills in its details; the image is cleaned up in the browser; then you compose outfits and see what your wardrobe is really doing for you.
+
+## The problem
+
+Cataloging a wardrobe by hand is tedious, so most people never finish. The app needs to remove that friction: one photo should produce a complete, correct record.
+
+## What I built
+
+- **AI cataloging.** An image-analysis API route calls Gemini Vision to detect category, colors, fabric, style, season and brand from a single photo.
+- **In-browser background removal.** The app uses `@imgly/background-removal`, MediaPipe and ONNX Runtime Web to cut out garments on the client.
+- **Outfits and planning.** A drag-and-drop outfit builder, collections, wear logging, a wishlist, maintenance reminders and a lending tracker.
+- **Notifications.** Web Push and email, via a `web-push` and Resend integration.
+- **Installable PWA** on mobile and desktop.
+
+## Architecture
+
+- Next.js 16 App Router with React 19 and Tailwind v4, deployed on Vercel.
+- Supabase Postgres with a **dedicated `wardrobe` schema**, so each lens owns its data.
+- Sign-in through the shared `@lifelens/auth` SDK, with a proxy-based auth guard.
+- Cloudinary for image storage; Sentry for error tracking.
+- TanStack Query hooks for data access, with a typed API layer of 63 route handlers.
+
+## Key decisions
+
+- **Client-side image processing.** Background removal runs in the browser, which keeps heavy image work off the server. The trade-off is a larger first download and dependence on the user's device.
+- **A schema per lens.** Wardrobe data lives in its own Postgres schema inside the shared Supabase project, so lenses stay independent while sharing authentication.
+- **AI as an enhancement, not a dependency.** When the AI service is unavailable or rate limited, the analysis route returns a flagged, non-fatal response so the app can fall back to manual entry. A resilience library (circuit breaker, retry, timeout, bulkhead, rate limiter) backs the external calls.
+
+## Results
+
+- Live at wardrobe-lens.vercel.app.
+- 63 API route handlers, 107 components and 34 custom hooks.
+- Split out of the hub as its own deployable app that reuses the shared login.

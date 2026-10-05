@@ -1,0 +1,36 @@
+## Overview
+
+LifeLens started as an AI-assisted wardrobe app and grew into a multi-lens life-management platform: a **hub** that owns login, separate **lens** apps for wardrobe, journaling, browsing habits and credentials, and an **Expo mobile app**. Its guiding rule is free-first: every feature is available to every user, with no paywalls or trial periods.
+
+## The problem
+
+Wardrobe apps tend to follow the same pattern: a free trial, then a paywall on core features. At the same time, every item has at least one photo, so image storage is the most expensive resource and the main scaling bottleneck. And the app depends on four external services (Supabase, Cloudinary, Google Drive and Gemini) that can each fail in their own way.
+
+## What I built
+
+- A Next.js 16 / React 19 / Tailwind v4 hub, installable as a PWA, with full item management, an outfit builder, wear logging, budgets, a wishlist, maintenance and lending trackers, and 40+ insight cards.
+- A Supabase Postgres backend with row-level security and 110 SQL migrations.
+- An Expo / React Native app with expo-router, SQLite offline storage, secure storage, biometrics and Apple sign-in, sharing code through `packages/shared` and `packages/api-client`.
+- A notification system: in-app, Web Push and an email digest, driven by a daily Vercel Cron job.
+- Sentry monitoring, W3C trace IDs and structured logging.
+
+## Architecture
+
+- One **pnpm monorepo** holds the hub, the mobile app and the shared packages.
+- The hub owns authentication; the lens apps share it through the `@lifelens/auth` SDK and keep their own Postgres schemas.
+- All storage goes through a single `StorageClient` interface with adapters for each provider.
+- Every external call passes through an adapter layer that adds a circuit breaker, retry and timeout.
+
+## Key decisions
+
+Each decision is recorded as an architecture decision record in the repo.
+
+- **Multi-provider storage behind one interface** (ADR-001). New users get 200 MB on the app's Cloudinary account with zero setup, and can connect their own Google Drive for unlimited storage. The trade-off is one more adapter to maintain per provider.
+- **Free-first model** (ADR-002). The only constraint is storage capacity, which users can lift at no cost, and the app nudges rather than gates. The trade-off is that monetization is deferred.
+- **Resilience at the adapter layer** (ADR-003). Routes never handle retries themselves, and the app degrades gracefully: if AI is down, entry falls back to manual; if storage is down, the app becomes read-only. The trade-off is more infrastructure code up front.
+
+## Results
+
+- 372 commits between November 2025 and July 2026, with Conventional Commits and a maintained changelog.
+- 28 Vitest test files and Playwright end-to-end specs.
+- The single hub later split into independent lens apps that share one login, all live on Vercel.

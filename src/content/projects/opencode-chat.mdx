@@ -1,0 +1,36 @@
+## Overview
+
+OpenCode Chat is a VS Code extension that brings a Copilot-style chat experience to the OpenCode coding agent. It runs entirely on its own: no Microsoft or GitHub account is needed.
+
+## The problem
+
+I wanted a native-feeling chat inside the editor, with streaming answers, visible tool use and control over what the agent is allowed to do, without tying it to a single vendor's account.
+
+## What I built
+
+- A sidebar chat with markdown rendering, syntax-highlighted code blocks and copy buttons.
+- **Streaming** output, including collapsible reasoning sections, over server-sent events.
+- Session management: switch between chats, start new ones and view history.
+- **Model and agent selection** from the providers the agent exposes.
+- **Tool-call display** with status (pending, running, completed, error) and a **permission prompt**: Allow Once, Always Allow or Deny.
+- **Context injection** that adds an editor selection to the prompt.
+
+## Architecture
+
+The extension has two halves that talk through a typed message channel:
+
+- **Extension host** (TypeScript, VS Code API, `@opencode-ai/sdk`). `server.ts` spawns the `opencode serve` process, polls its health endpoint and restarts it if it crashes. `chat-view.ts` is the webview provider: it drives sessions and prompts through the SDK and handles optimistic messages with de-duplication.
+- **Webview UI** (React 18, Zustand 5, react-markdown, react-virtuoso). A Zustand store holds state; components include the message list, message parts, the prompt input, a context bar and a model/agent bar.
+- `shared/protocol.ts` defines the typed `HostMessage` and `WebviewMessage` unions used by both sides.
+
+## Key decisions
+
+- **One shared protocol file.** Both halves import the same message types, so a change to the contract fails at compile time rather than at runtime.
+- **A virtualized message list.** Long streaming transcripts stay smooth because only visible messages are rendered.
+- **Two bundlers for two environments.** Bun builds the extension host and Vite builds the webview, each with the tool that fits it.
+- **Error boundaries around message rendering**, so one malformed part cannot take down the whole chat.
+
+## Results
+
+- A working, installable extension built in two days (6 commits, 31 March to 1 April 2026).
+- Open source at github.com/jalal-haidar/opencode-chat.

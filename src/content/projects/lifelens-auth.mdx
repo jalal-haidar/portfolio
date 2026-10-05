@@ -1,0 +1,38 @@
+## Overview
+
+`@lifelens/auth` is a TypeScript SDK, published on npm, that gives several independent Next.js apps a single login. It wraps Supabase authentication with the pieces every app would otherwise rebuild: a provider, hooks, a route guard and a way to move a session between apps.
+
+## The problem
+
+LifeLens grew from one app into a hub plus several lens apps, each deployed separately. A user should sign in once and move between them without logging in again, and each app should not carry its own copy of the auth code.
+
+## What I built
+
+The package exposes 10 entry points:
+
+- `AuthProvider` and `useAuth`, `useUser` and `useSession` hooks for React.
+- Server and browser Supabase client factories.
+- `createAuthGuard`, a Next.js middleware guard for route protection.
+- `bridgeExchangeCode`, a cross-app bridge based on PKCE code exchange.
+- `handleAuthCallback` for OAuth callbacks.
+- Environment helpers and shared TypeScript types.
+
+## Architecture
+
+- **The hub owns login.** A lens app redirects an unauthenticated user to the hub, which signs them in and then passes the session back to the lens through the bridge.
+- **A shared cookie** on the production domain keeps sessions across subdomains.
+- **A bearer-token bypass** lets API routes authenticate with an `Authorization` header, which suits mobile and scripted clients.
+- A `compat` entry point wraps the provider so existing apps keep their local import paths stable while they migrate.
+
+## Key decisions
+
+- **One package instead of copied code.** Fixes ship once and every app gets them. The trade-off is that a breaking change affects every consumer, so versions and peer dependencies are managed carefully.
+- **Peer dependencies for Next.js, React and Supabase.** The SDK stays small and never ships a second copy of those libraries.
+- **PKCE for the cross-app handoff**, rather than passing tokens around in URLs.
+- **Subpath exports.** Server-only and client-only code are separated at the import level, so each app pulls in only what it needs.
+
+## Results
+
+- Published on npm as `@lifelens/auth`.
+- 15 test files across separate unit and integration suites.
+- Used by the hub and lens apps to share one sign-in.

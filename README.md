@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jalal Haidar — Portfolio
 
-## Getting Started
+[![CI](https://github.com/jalal-haidar/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/jalal-haidar/portfolio/actions/workflows/ci.yml)
 
-First, run the development server:
+Personal portfolio of **Jalal Haidar**, a full-stack TypeScript engineer who ships AI-powered products end to end.
+
+**Live:** https://jalal-haidar.vercel.app
+
+## Stack
+
+- **Next.js 16** (App Router) and **React 19**, TypeScript in strict mode
+- **Tailwind CSS v4**, `next-themes` for light and dark mode, `lucide-react` icons
+- **MDX** case studies via `@next/mdx`, loaded with dynamic imports
+- **Playwright** smoke tests and a GitHub Actions workflow
+- Hosted on **Vercel**; privacy-friendly analytics and Speed Insights (no cookies)
+
+The site is fully static: no database, no API routes and no contact form. Pages are generated at build time, and project routes use `generateStaticParams` with `dynamicParams = false`.
+
+## Scripts
+
+| Command                     | What it does                                        |
+| --------------------------- | --------------------------------------------------- |
+| `pnpm dev`                  | Start the dev server on http://localhost:3000       |
+| `pnpm build` / `pnpm start` | Production build and server                         |
+| `pnpm lint`                 | ESLint                                              |
+| `pnpm typecheck`            | `tsc --noEmit`                                      |
+| `pnpm format`               | Prettier (with the Tailwind class-sorting plugin)   |
+| `pnpm test:e2e`             | Playwright smoke tests (needs a prior `pnpm build`) |
+
+First-time setup:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm exec playwright install chromium
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All copy lives in `src/content/`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| File                  | Content                                      |
+| --------------------- | -------------------------------------------- |
+| `profile.ts`          | Name, tagline, bio, links, skills, education |
+| `experience.ts`       | Jobs and their bullets                       |
+| `projects.ts`         | The project index (typed)                    |
+| `projects/<slug>.mdx` | One case study per project                   |
+| `writing.ts`          | Articles                                     |
 
-## Learn More
+To add a project: add an entry to `projects.ts`, create `src/content/projects/<slug>.mdx` using the same sections as the others (Overview, The problem, What I built, Architecture, Key decisions, Results), and optionally add a cover image at `public/projects/<slug>/cover.webp`. Without a cover, a generated tile is shown.
 
-To learn more about Next.js, take a look at the following resources:
+Every claim in a case study should be traceable to the project's own repository (README, docs, manifests, tests or git history).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Layout
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/            routes: home, /projects, /projects/[slug], /resume, SEO files
+  components/     Header, Footer, ProjectCard, ThemeToggle, ...
+  content/        typed data and MDX case studies
+  lib/site.ts     SITE_URL and project helpers
+tests/            Playwright smoke tests
+```
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Code is released under the [MIT License](LICENSE). The written content, case studies and images are © Jalal Haidar and are not covered by that license.

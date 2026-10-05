@@ -1,0 +1,34 @@
+## Overview
+
+GitSwitch is a cross-platform desktop app for people who use more than one Git identity on the same machine. It manages profiles, switches the global identity with one click, applies a profile automatically per folder, and handles SSH keys.
+
+## The problem
+
+Anyone with a personal account, a work account and an open-source account eventually commits with the wrong name or email, then loses time editing `.gitconfig` and `~/.ssh/config` by hand. Existing tools are either full Git clients, tied to one provider, or limited to one editor.
+
+## What I built
+
+- **Profile management** for name, email, signing preferences and SSH keys.
+- **One-click global switch**, written to the global `.gitconfig`.
+- **Directory rules.** A folder maps to a profile, and every repository under it uses that identity automatically through git `includeIf`.
+- **SSH key handling**: generate or attach keys, write `~/.ssh/config` host aliases and test the connection.
+- Signed Windows installers with an auto-update manifest.
+
+## Architecture
+
+- **Rust backend (Tauri 2)** owns the file system, git configuration and security-sensitive work such as SSH keys. Commands are exposed to the UI over Tauri IPC.
+- **React + TypeScript frontend** with a Zustand store.
+- Every command returns a `Result`; errors are serialized as `{ kind, message, hint?, details? }` and normalized once on the frontend.
+- Directory rules write one identity file per profile plus a single managed `includeIf` block, so GitSwitch never rewrites the rest of a user's config.
+
+## Key decisions
+
+- **Tauri over Electron.** The project plan chose Tauri for a small binary and low memory use, using the operating system's webview with a Rust backend. The trade-off is learning Rust and handling platform differences.
+- **A managed block in the user's config.** Only the section between the markers is touched, so manual edits elsewhere are safe.
+- **A single error contract.** One typed error shape means the UI can show a clear message and a hint for every failure.
+
+## Results
+
+- Public releases on GitHub, latest v0.2.7, with signed EXE and MSI installers.
+- 25 Rust tests and 4 frontend test files, plus CI and release workflows in GitHub Actions.
+- 19 commits from March to October 2026.

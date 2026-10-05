@@ -1,0 +1,35 @@
+## Overview
+
+Exchange Lens is a back-office dashboard for a currency-exchange business. It covers the daily work of such a shop: customers, transactions, exchange rates, expenses and reports.
+
+## The problem
+
+A currency-exchange counter needs to record each transaction quickly, keep the day's rates current, track what it spends and see how the business is doing. Staff work at a counter, so the screens have to be fast, clear and usable on a phone as well as on a desktop.
+
+## What I built
+
+- **Dashboard** with summary figures and charts built on Recharts.
+- **Customers**, including a detail page for each customer's history.
+- **Transactions**, with a dedicated form for entering a new one and a list to review them.
+- **Rates** management for the currencies the shop trades.
+- **Expenses** and **reports** for the business side.
+- **Settings**, with dark mode and mobile layouts for the main screens.
+
+## Architecture
+
+- Next.js 16 App Router and React 19 on Vercel, with 10 pages and 16 API routes.
+- Supabase for data and authentication, with sign-in handled by the shared `@lifelens/auth` SDK.
+- TanStack Query for data fetching and react-hook-form for the data-entry screens.
+- A `proxy.js` guard that protects the dashboard routes.
+
+## Key decisions
+
+- **Reuse the shared auth SDK.** The app plugs into the same login as the other lens apps instead of building its own.
+- **End-to-end tests on every screen.** Ten Playwright spec files cover authentication, the API routes and each main page, so a regression in a money-related screen is caught before release.
+- **Mobile layouts as a first-class target.** The dashboard, rates, expenses, reports and new-transaction screens were all reviewed in mobile screenshots.
+
+## Results
+
+- Live at exchange-lens.vercel.app, with the source public on GitHub.
+- 10 Playwright end-to-end spec files plus shared test helpers.
+- Built as one more lens on the shared LifeLens platform.

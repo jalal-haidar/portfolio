@@ -1,0 +1,31 @@
+## Overview
+
+MominTrust Web is the website and installable app for Momin Trust, a non-profit that identifies academically strong children from financially disadvantaged families in government schools, raises funds for them and pays for tuition, books and supplies.
+
+## The problem
+
+The trust needed an online presence that could reach donors and supporters, explain its mission, show transparent impact and success stories, and work well on the phones and patchy connections of its community.
+
+## What I built
+
+- A responsive site and **installable PWA** built with React 18, Vite 5 and TypeScript, using MUI v5 for the interface.
+- Routing with React Router, state with Recoil, charts for impact reporting, a theme system with light and dark modes, hotkeys, notifications and error handling.
+- A full delivery pipeline around the app: linting, formatting, pre-commit hooks, tests, static analysis and container images.
+
+## Architecture
+
+- Single-page React application started from an MIT-licensed PWA template and reshaped for the trust's content and branding.
+- A `Dockerfile` and `docker-compose` setup serving the built app behind nginx.
+- Four GitHub Actions workflows: CI checks, a build with SonarQube analysis, a Docker CI build and a Docker image build-and-publish job.
+
+## Key decisions
+
+- **Start from a template, then own it.** Using a PWA template gave a solid base (offline support, performance settings, folder structure) so the time went into the trust's actual needs. The trade-off is adapting conventions that were not originally mine.
+- **Quality gates from day one.** Husky and lint-staged run checks before each commit, and CI runs the same checks on every push.
+- **Containerized delivery**, so the site can be built and published the same way anywhere.
+
+## Results
+
+- 82 commits in roughly a week, from 16 to 22 October 2025.
+- 9 Vitest test files and 3 Playwright end-to-end specs.
+- Deployed at momin-trust-web.vercel.app.

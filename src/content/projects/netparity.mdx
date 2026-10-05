@@ -1,0 +1,31 @@
+## Overview
+
+NetParity is a small, always-on-top Windows HUD that shows live CPU, RAM and network speed. Its goal is to match the numbers on the Windows Task Manager Performance tab, so you can read them without leaving what you are doing.
+
+## The problem
+
+When something lags, the first question is whether it is the network or the machine. Alt-tabbing to Task Manager breaks your focus, and heavier profiling tools can skew the very thing you are measuring.
+
+## What I built
+
+- A tiny floating window that stays on top of other windows.
+- **Network throughput in bits**, matching how ISPs and Windows report it, with automatic scaling between Kbps and Mbps.
+- **CPU and RAM** readouts.
+- Two ways to run it: a PowerShell script with a double-click launcher, and a standalone `NetParity.exe` published on GitHub Releases.
+
+## Architecture
+
+- A lightweight PowerShell and .NET implementation that reads network statistics through the .NET `NetworkInterface` APIs.
+- Sampling and smoothing tuned to match the timing of Task Manager rather than raw instantaneous values.
+- No installer and no background service: run it, and close it when you are done.
+
+## Key decisions
+
+- **Match Task Manager exactly.** A diagnostic tool is only useful if you trust its numbers, so parity with the tool people already know was the main requirement.
+- **Keep it light.** A small footprint means the HUD does not distort build times or game performance while it measures them.
+- **Ship a single executable**, so sharing it takes one download rather than a setup guide.
+
+## Results
+
+- Public on GitHub with a v1.0.0 release and a standalone executable.
+- Built in a day (3 commits on 11 March 2026) as a small, finished utility.
