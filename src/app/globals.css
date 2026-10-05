@@ -29,4 +29,18 @@ html {
     background: #fff !important;
     color: #000 !important;
   }
+  /* Resume prints as plain black-on-white regardless of the active theme. */
+  .resume,
+  .resume * {
+    color: #000 !important;
+    border-color: #a1a1aa !important;
+  }
+  .resume a {
+    text-decoration: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 12mm 15mm;
 }

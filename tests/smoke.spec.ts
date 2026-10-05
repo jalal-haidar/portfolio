@@ -58,6 +58,12 @@ test.describe("routes", () => {
     expect((await request.get("/robots.txt")).status()).toBe(200);
   });
 
+  test("resume PDF is served", async ({ request }) => {
+    const res = await request.get("/Jalal_Haidar_Resume.pdf");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toContain("application/pdf");
+  });
+
   test("open graph image is generated", async ({ request }) => {
     const res = await request.get("/opengraph-image");
     expect(res.status()).toBe(200);

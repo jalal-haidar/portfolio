@@ -18,14 +18,15 @@ The site is fully static: no database, no API routes and no contact form. Pages 
 
 ## Scripts
 
-| Command                     | What it does                                        |
-| --------------------------- | --------------------------------------------------- |
-| `pnpm dev`                  | Start the dev server on http://localhost:3000       |
-| `pnpm build` / `pnpm start` | Production build and server                         |
-| `pnpm lint`                 | ESLint                                              |
-| `pnpm typecheck`            | `tsc --noEmit`                                      |
-| `pnpm format`               | Prettier (with the Tailwind class-sorting plugin)   |
-| `pnpm test:e2e`             | Playwright smoke tests (needs a prior `pnpm build`) |
+| Command                     | What it does                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| `pnpm dev`                  | Start the dev server on http://localhost:3000                                |
+| `pnpm build` / `pnpm start` | Production build and server                                                  |
+| `pnpm lint`                 | ESLint                                                                       |
+| `pnpm typecheck`            | `tsc --noEmit`                                                               |
+| `pnpm format`               | Prettier (with the Tailwind class-sorting plugin)                            |
+| `pnpm test:e2e`             | Playwright smoke tests (needs a prior `pnpm build`)                          |
+| `pnpm resume:pdf [url]`     | Regenerate `public/Jalal_Haidar_Resume.pdf` from `/resume` (server on :3100) |
 
 First-time setup:
 
@@ -45,8 +46,11 @@ All copy lives in `src/content/`:
 | `projects.ts`         | The project index (typed)                    |
 | `projects/<slug>.mdx` | One case study per project                   |
 | `writing.ts`          | Articles                                     |
+| `resume.ts`           | Resume headline, summary and product lines   |
 
 To add a project: add an entry to `projects.ts`, create `src/content/projects/<slug>.mdx` using the same sections as the others (Overview, The problem, What I built, Architecture, Key decisions, Results), and optionally add a cover image at `public/projects/<slug>/cover.webp`. Without a cover, a generated tile is shown.
+
+After changing anything shown on `/resume`, rebuild, start the server on port 3100 and run `pnpm resume:pdf`, then commit the new PDF.
 
 Every claim in a case study should be traceable to the project's own repository (README, docs, manifests, tests or git history).
 
