@@ -7,9 +7,12 @@ export function Footer() {
   return (
     <footer className="no-print mt-16 border-t border-zinc-200 py-8 text-sm dark:border-zinc-800">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 sm:px-6 md:flex-row md:items-center md:justify-between">
-        <p className="text-zinc-500 dark:text-zinc-500">
+        <p className="text-zinc-500 dark:text-zinc-400">
           © {new Date().getFullYear()} {profile.name}. Built with Next.js ·{" "}
-          <a className={link} href="https://github.com/jalal-haidar/portfolio">
+          <a
+            className={`${link} underline`}
+            href="https://github.com/jalal-haidar/portfolio"
+          >
             source
           </a>
         </p>

@@ -29,7 +29,7 @@ export default function ResumePage() {
         {profile.tagline} {profile.stackLine}.
       </p>
 
-      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700">
+      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700 dark:text-zinc-400">
         Experience
       </h2>
       <div className="mt-4 space-y-6">
@@ -39,7 +39,7 @@ export default function ResumePage() {
               <h3 className="font-semibold">
                 {job.company}, <span className="font-normal italic">{job.role}</span>
               </h3>
-              <p className="font-mono text-xs text-zinc-500">
+              <p className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
                 {job.period} | {job.location}
               </p>
             </div>
@@ -52,7 +52,7 @@ export default function ResumePage() {
         ))}
       </div>
 
-      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700">
+      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700 dark:text-zinc-400">
         Selected products
       </h2>
       <ul className="mt-4 space-y-3 text-sm leading-6">
@@ -63,7 +63,7 @@ export default function ResumePage() {
         ))}
       </ul>
 
-      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700">
+      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700 dark:text-zinc-400">
         Skills
       </h2>
       <dl className="mt-4 space-y-2 text-sm leading-6">
@@ -75,7 +75,7 @@ export default function ResumePage() {
         ))}
       </dl>
 
-      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700">
+      <h2 className="mt-8 border-b border-zinc-300 pb-1 text-sm font-semibold tracking-widest text-zinc-500 uppercase dark:border-zinc-700 dark:text-zinc-400">
         Education &amp; certificates
       </h2>
       <p className="mt-4 text-sm leading-6">

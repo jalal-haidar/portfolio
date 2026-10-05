@@ -11,9 +11,10 @@ export function ExperienceTimeline() {
           />
           <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
             <h3 className="font-semibold">
-              {job.role} <span className="text-zinc-500">· {job.company}</span>
+              {job.role}{" "}
+              <span className="text-zinc-500 dark:text-zinc-400">· {job.company}</span>
             </h3>
-            <p className="font-mono text-xs text-zinc-500">
+            <p className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
               {job.period} · {job.location}
             </p>
           </div>

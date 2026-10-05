@@ -4,6 +4,7 @@ import { projects } from "../src/content/projects";
 const staticRoutes = ["/", "/projects", "/resume"];
 const projectRoutes = projects.map((p) => `/projects/${p.slug}`);
 const allRoutes = [...staticRoutes, ...projectRoutes];
+const siteHost = new URL(process.env.BASE_URL ?? "http://localhost").hostname;
 
 /**
  * Collects page errors, console errors and failed same-origin responses.
@@ -21,7 +22,7 @@ function watchForErrors(page: Page) {
   page.on("response", (res) => {
     const url = new URL(res.url());
     if (
-      url.hostname === "localhost" &&
+      url.hostname === siteHost &&
       res.status() >= 400 &&
       !url.pathname.startsWith("/_vercel")
     ) {

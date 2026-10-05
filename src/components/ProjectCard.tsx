@@ -29,7 +29,7 @@ export function ProjectCard({
         </div>
         <div className="mt-auto flex flex-col gap-3">
           <TechChips items={project.stack} max={4} />
-          <p className="font-mono text-xs text-zinc-500">
+          <p className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
             {project.period} ·{" "}
             {project.source === "public" ? "Open source" : "Source on request"}
           </p>

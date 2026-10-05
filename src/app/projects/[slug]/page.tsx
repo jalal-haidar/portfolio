@@ -42,7 +42,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
     <article className="mx-auto max-w-3xl py-12 sm:py-16">
       <Link
         href="/projects"
-        className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+        className="text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
       >
         ← All projects
       </Link>
@@ -53,15 +53,15 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
       <dl className="mt-6 grid gap-4 border-y border-zinc-200 py-4 text-sm sm:grid-cols-3 dark:border-zinc-800">
         <div>
-          <dt className="text-zinc-500">Role</dt>
+          <dt className="text-zinc-500 dark:text-zinc-400">Role</dt>
           <dd className="mt-0.5 font-medium">{project.role}</dd>
         </div>
         <div>
-          <dt className="text-zinc-500">Period</dt>
+          <dt className="text-zinc-500 dark:text-zinc-400">Period</dt>
           <dd className="mt-0.5 font-medium">{project.period}</dd>
         </div>
         <div>
-          <dt className="text-zinc-500">Source</dt>
+          <dt className="text-zinc-500 dark:text-zinc-400">Source</dt>
           <dd className="mt-0.5 font-medium">
             {project.source === "public" ? (
               "Open source"
@@ -134,7 +134,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           aria-label="Next project"
           className="mt-14 border-t border-zinc-200 pt-6 dark:border-zinc-800"
         >
-          <p className="text-sm text-zinc-500">Next project</p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">Next project</p>
           <Link
             href={`/projects/${next.slug}`}
             className="mt-1 inline-block text-lg font-semibold hover:text-emerald-700 dark:hover:text-emerald-400"

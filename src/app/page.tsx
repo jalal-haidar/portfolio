@@ -35,7 +35,9 @@ export default function Home() {
         <p className="mt-4 max-w-2xl text-xl leading-8 text-zinc-800 sm:text-2xl sm:leading-9 dark:text-zinc-200">
           {profile.tagline}
         </p>
-        <p className="mt-3 font-mono text-sm text-zinc-500">{profile.stackLine}</p>
+        <p className="mt-3 font-mono text-sm text-zinc-500 dark:text-zinc-400">
+          {profile.stackLine}
+        </p>
         <p className="mt-6 max-w-2xl leading-7 text-zinc-600 dark:text-zinc-400">
           {profile.bio}
         </p>
@@ -77,7 +79,9 @@ export default function Home() {
         <dl className="grid gap-6 sm:grid-cols-2">
           {profile.skills.map((g) => (
             <div key={g.group}>
-              <dt className="mb-2 text-sm font-semibold text-zinc-500">{g.group}</dt>
+              <dt className="mb-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
+                {g.group}
+              </dt>
               <dd>
                 <TechChips items={g.items} />
               </dd>
@@ -102,7 +106,7 @@ export default function Home() {
                       aria-hidden
                     />
                   </span>
-                  <span className="shrink-0 font-mono text-xs text-zinc-500">
+                  <span className="shrink-0 font-mono text-xs text-zinc-500 dark:text-zinc-400">
                     {a.date}
                   </span>
                 </a>
