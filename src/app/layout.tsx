@@ -71,7 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           <a
             href="#main"
-            className="no-print sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-emerald-600 focus:px-3 focus:py-2 focus:text-white"
+            className="no-print sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-emerald-700 focus:px-3 focus:py-2 focus:text-white"
           >
             Skip to content
           </a>
